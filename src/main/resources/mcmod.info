@@ -1,0 +1,16 @@
+[
+{
+  "modid": "endernexus",
+  "name": "Ender Nexus",
+  "description": "Adds a block resembling Thermal Expansion's old Tesseracts",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Talkarcabbage"],
+  "credits": "The Forge and FML guys, for making forge.",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
