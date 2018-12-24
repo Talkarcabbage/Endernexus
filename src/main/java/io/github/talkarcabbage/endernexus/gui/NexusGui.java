@@ -17,7 +17,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 
-public class NexusGui extends GuiContainer implements ButtonCallbackListener {
+public class NexusGui extends GuiContainer implements ButtonCallbackListener, NexusNetworkScrollGuiCallbackListener {
 
 	ResourceLocation background = new ResourceLocation(EnderNexus.MODID, "textures/gui/endernexusgui.png");
 	EnderNexusBlockTileEntity entity;
@@ -42,6 +42,7 @@ public class NexusGui extends GuiContainer implements ButtonCallbackListener {
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		if (scrollList==null) {
 			scrollList = new NexusNetworksScrollGui(mc, entity, 90, 76, guiTop+26, guiTop+101, guiLeft+7, 11, width, height);
+			scrollList.setListChangeListener(this);
 		}
 		ArrayList<String> exampleList = new ArrayList<>();
 		for (int i = 0; i < entity.getNetworksCacheList().size(); i++) {
@@ -64,23 +65,23 @@ public class NexusGui extends GuiContainer implements ButtonCallbackListener {
 		
 		
 		if (okButton==null) {
-			okButton = new IconButton(0, guiLeft+98, guiTop+6, background, 192, 0, this, 15, 12);
+			okButton = new IconButton(0, guiLeft+98, guiTop+8, background, 192, 0, this, 15, 12);
 			this.addButton(okButton);
 		}
 		if (deleteButton==null) {
-			deleteButton = new IconButton(1, guiLeft+116, guiTop+6, background, 192, 11, this, 15, 12);
+			deleteButton = new IconButton(1, guiLeft+98, guiTop+25, background, 192, 11, this, 15, 12);
 			this.addButton(deleteButton);
 		}
 		if (itemButton==null) {
-			itemButton = new IconButton(2, guiLeft+135, guiTop+23, background, 176, 0, this);
+			itemButton = new IconButton(2, guiLeft+130, guiTop+30, background, 176, 0, this);
 			this.addButton(itemButton);
 		}
 		if (fluidButton==null) {
-			fluidButton = new IconButton(3, guiLeft+135, guiTop+52, background, 176, 0, this);
+			fluidButton = new IconButton(3, guiLeft+130, guiTop+54, background, 176, 0, this);
 			this.addButton(fluidButton);
 		}
 		if (energyButton==null) {
-			energyButton = new IconButton(4, guiLeft+135, guiTop+81, background, 176, 0, this);
+			energyButton = new IconButton(4, guiLeft+130, guiTop+78, background, 176, 0, this);
 			this.addButton(energyButton);
 		}
 		
@@ -91,10 +92,41 @@ public class NexusGui extends GuiContainer implements ButtonCallbackListener {
 		itemButton.drawButton(mc, mouseX, mouseY, partialTicks);
 		fluidButton.drawButton(mc, mouseX, mouseY, partialTicks);
 		energyButton.drawButton(mc, mouseX, mouseY, partialTicks);
-		
 
 		newIdTextField.drawTextBox();
 		scrollList.drawScreen(mouseX, mouseY, partialTicks);
+		
+		if (itemButton.isHoveringOn(mouseX, mouseY)) {
+			drawHoveringText("Items: " + getTypeTooltip(itemButton.getIconIndex()), mouseX, mouseY);
+		}
+		if (fluidButton.isHoveringOn(mouseX, mouseY)) { 
+			drawHoveringText("Fluids: " + getTypeTooltip(fluidButton.getIconIndex()), mouseX, mouseY);
+		}
+		if (energyButton.isHoveringOn(mouseX, mouseY)) {
+			drawHoveringText("FE/RF: " + getTypeTooltip(energyButton.getIconIndex()), mouseX, mouseY);
+		}
+		if (okButton.isHoveringOn(mouseX, mouseY)) {
+			drawHoveringText("Applies the current text box text as the\nnetwork id, creating a new network if necessary.\nDouble click a network name in the list to switch to it immediately.", mouseX, mouseY);
+		}
+		if (deleteButton.isHoveringOn(mouseX, mouseY)) {
+			drawHoveringText("Deletes the currently selected network in the list.", mouseX, mouseY);
+		}
+
+	}
+	
+	public String getTypeTooltip(int type) {
+		switch (type) {
+		case 0:
+			return "Disabled";
+		case 1: 
+			return "Sending";
+		case 2:
+			return "Receiving";
+		case 3:
+			return "Both";
+		default:
+			return "???";
+		}
 	}
 	
 	@Override
@@ -142,7 +174,7 @@ public class NexusGui extends GuiContainer implements ButtonCallbackListener {
 			return;
 		}
 		if (button==deleteButton) {
-			if (scrollList.selectedListIndex>=0) {
+			if (scrollList.selectedListIndex>=0 && !scrollList.list.isEmpty()) {
 				NexusNetworkManager.INSTANCE.sendToServer(new NexusTileSettingsDeleteNetworkPacket(scrollList.list.get(scrollList.selectedListIndex)));
 			}
 			return;
@@ -165,6 +197,18 @@ public class NexusGui extends GuiContainer implements ButtonCallbackListener {
 	
 	public void processUpdateButton(TransferType itemType, TransferType fluidType, TransferType energyType, String nexusId) {
 		NexusNetworkManager.INSTANCE.sendToServer(new NexusTileSettingsUpdatePacket(itemType, fluidType, energyType, nexusId, entity.getPos()));
+	}
+	
+	public void onNetworkScrollGuiSelectionChange() {
+		
+	}
+
+	@Override
+	public void onListSelectionChanged(boolean doubleClick, int selectedIndex) {
+		if (selectedIndex>=0 && scrollList.list.size()>selectedIndex) {
+			this.newIdTextField.setText(scrollList.list.get(selectedIndex));
+		}
+		
 	}
 	
 }

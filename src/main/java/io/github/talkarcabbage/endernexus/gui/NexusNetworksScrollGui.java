@@ -19,11 +19,16 @@ public class NexusNetworksScrollGui extends GuiScrollingList {
 	List<String> list = new ArrayList<>();
 	int selectedListIndex = -1;
 	int activeListIndex = -1;
+	NexusNetworkScrollGuiCallbackListener listener;
 
 	public NexusNetworksScrollGui(Minecraft client, EnderNexusBlockTileEntity entity, int width, int height, int top, int bottom, int left, int entryHeight, int screenWidth, int screenHeight) {
 		super(client, width, height, top, bottom, left, entryHeight, screenWidth, screenHeight);
 		mc=client;
 		this.entity=entity;
+	}
+	
+	public void setListChangeListener(NexusNetworkScrollGuiCallbackListener listener) {
+		this.listener=listener;
 	}
 	
 	public void updateList(List<String> newList) {
@@ -38,6 +43,9 @@ public class NexusNetworksScrollGui extends GuiScrollingList {
 	@Override
 	protected void elementClicked(int index, boolean doubleClick) {
 		this.selectedListIndex=index;
+		if (listener != null) {
+			this.listener.onListSelectionChanged(doubleClick, index);
+		}
 		if (doubleClick) {
 			activeListIndex=index;
 			NexusNetworkManager.INSTANCE.sendToServer(new NexusTileSettingsUpdatePacket(entity.getItemType(), entity.getFluidType(), entity.getEnergyType(), list.get(activeListIndex), entity.getPos()));

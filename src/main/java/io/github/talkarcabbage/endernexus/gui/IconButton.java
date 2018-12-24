@@ -51,9 +51,19 @@ public class IconButton extends GuiButton {
 				j += this.width * 3;
 			}
 
-			this.drawTexturedModalRect(this.x, this.y, j, 219, this.width, this.height);
-			this.drawTexturedModalRect(this.x + 2, this.y + 2, this.iconX, this.iconY+(this.height*iconIndex), this.width, this.height);
+			//this.drawTexturedModalRect(this.x, this.y, j, 219, this.width, this.height);
+			this.drawTexturedModalRect(this.x, this.y, this.iconX, this.iconY+(this.height*iconIndex), this.width, this.height);
+			
+			
 		}
+	}
+	
+	public boolean isHoveringOn(int mouseX, int mouseY) {
+		return (isNumberBetweenMinAndMax(mouseX, this.x, this.x+this.width-1) && isNumberBetweenMinAndMax(mouseY, this.y, this.y+this.height-1));
+	}
+	
+	public static boolean isNumberBetweenMinAndMax(int num, int min, int max) {
+		return num>=min && num<=max; 
 	}
 	
 	public void setIconIndex(int index) {
@@ -78,5 +88,7 @@ public class IconButton extends GuiButton {
 	public int getIconIndex() {
 		return iconIndex;
 	}
+	
+	
 	
 }
