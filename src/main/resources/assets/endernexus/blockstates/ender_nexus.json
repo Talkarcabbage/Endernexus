@@ -1,0 +1,10 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "endernexus:nexus_block"
+  },
+  "variants": {
+    "normal": [{"model": "endernexus:nexus_block"}],
+    "inventory": [{"model": "endernexus:nexus_block"}]
+  }
+}

@@ -1,0 +1,34 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern":
+    [
+        "exe",
+        "xrx",
+        "pxp"
+    ],
+    "key":
+    {
+        "x":
+        {
+            "item": "minecraft:diamond"
+        },
+        "p":
+        {
+            "item": "minecraft:ender_pearl"
+		},
+		"e":
+		{
+			"item": "minecraft:ender_eye"
+		},
+        "r":
+        {
+			"type": "forge:ore_dict",
+            "ore": "blockRedstone"
+		}
+    },
+    "result":
+    {
+        "item": "endernexus:ender_nexus",
+        "count": 1
+    }
+}

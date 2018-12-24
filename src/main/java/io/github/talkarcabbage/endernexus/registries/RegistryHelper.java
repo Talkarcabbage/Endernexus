@@ -5,11 +5,8 @@ import java.util.List;
 
 import io.github.talkarcabbage.endernexus.EnderNexus;
 import net.minecraft.block.Block;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 
@@ -19,13 +16,13 @@ public class RegistryHelper {
 	static List<Block> blocks = new ArrayList<>();
 	
 	
-	public Item addItem(Item item) {
+	public static Item addItem(Item item) {
 		items.add(item);
 		return item;
 	}
 	
 	
-	public Block addBlock(Block block) {
+	public static Block addBlock(Block block) {
 		blocks.add(block);
 		return block;
 	}
