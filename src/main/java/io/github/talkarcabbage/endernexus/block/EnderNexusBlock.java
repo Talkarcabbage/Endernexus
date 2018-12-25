@@ -9,10 +9,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -21,7 +19,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -67,7 +64,7 @@ public class EnderNexusBlock extends Block {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT) // Borrowed and cleaned up from vanilla portal
+	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
 		if (worldIn.getTileEntity(pos) instanceof EnderNexusBlockTileEntity && ((EnderNexusBlockTileEntity)worldIn.getTileEntity(pos)).hasValidNetworkClient()) {
 			for (int i = 0; i < 4; ++i) {
@@ -105,15 +102,13 @@ public class EnderNexusBlock extends Block {
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (worldIn.isRemote)
 			return true;
 		if (worldIn.isBlockLoaded(pos)) {
 			TileEntity entity = worldIn.getTileEntity(pos);
 			if (entity instanceof EnderNexusBlockTileEntity) {
-				EnderNexusInstance instance = EnderNexusManager.get(worldIn)
-						.getNexus(((EnderNexusBlockTileEntity) entity).getNexusId());
+				EnderNexusInstance instance = EnderNexusManager.get(worldIn).getNexus(((EnderNexusBlockTileEntity) entity).getNexusId());
 				if (instance != null) {
 					EnderNexus.logger.info("ID:" + instance.getId());
 					EnderNexus.logger.info("Item:" + instance.getItemHandler().get().getStackInSlot(0));
@@ -127,6 +122,7 @@ public class EnderNexusBlock extends Block {
 							+ ((EnderNexusBlockTileEntity) entity).getEnergyType());
 				}
 				playerIn.openGui(EnderNexus.instance, 1, worldIn, pos.getX(), pos.getY(), pos.getZ());
+				return true;
 			}
 		}
 		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);

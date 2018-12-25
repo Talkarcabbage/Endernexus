@@ -8,6 +8,7 @@ import io.github.talkarcabbage.endernexus.nexus.TransferType;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -67,7 +68,7 @@ public class NexusTileSettingsUpdatePacket implements IMessage {
 				WorldServer serverWorld = ctx.getServerHandler().player.getServerWorld();
 				if (serverWorld.isBlockLoaded(message.entityPos) && serverWorld.getTileEntity(message.entityPos) instanceof EnderNexusBlockTileEntity) {
 					if (EnderNexusManager.get(serverWorld).getNexus(message.networkLabel)==null && EnderNexusManager.get(serverWorld).getNexusNames().size()>=EnderNexusConfig.maxNetworks) {
-						ctx.getServerHandler().player.sendMessage(new TextComponentString("Too many networks already exist!"));
+						ctx.getServerHandler().player.sendMessage(new TextComponentTranslation("endernexus.too_many_networks"));
 					} else {
 						EnderNexusManager.get(serverWorld).createNewNexusIfNotExists(message.networkLabel);
 						serverWorld.addScheduledTask( () -> ((EnderNexusBlockTileEntity)serverWorld.getTileEntity(message.entityPos)).onNexusDataPacketUpdate(message.networkLabel, message.inventoryType, message.fluidType, message.energyType));

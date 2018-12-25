@@ -9,6 +9,7 @@ public class ItemStackHandlerWrapper implements IItemHandler {
 
 	ItemStackHandler wrappedStorage;
 	TransferType transferType;
+	int insertionCounterTick = 0;
 	
 	public ItemStackHandlerWrapper(ItemStackHandler wrappedStorage) {
 		this.wrappedStorage=wrappedStorage;
@@ -67,6 +68,18 @@ public class ItemStackHandlerWrapper implements IItemHandler {
 
 	public boolean hasStorage() {
 		return wrappedStorage!=null;
+	}
+	
+	public int getTicksSinceLastInsertion() {
+		return insertionCounterTick;
+	}
+	
+	public void tickInsertionCounter() {
+		insertionCounterTick++;
+	}
+	
+	public void resetInsertionCounter() {
+		insertionCounterTick=0;
 	}
 	
 }

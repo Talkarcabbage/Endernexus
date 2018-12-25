@@ -7,3 +7,24 @@ item.endernexus.ender_nexus.name=Ender Nexus
 #items
 
 #other
+endernexus.accept_button_tooltip=Applies the current text box text as the network id, creating a new network if necessary. Double click a network name in the list to switch to it immediately.
+endernexus.delete_button_tooltip=Deletes the currently selected network in the list.
+
+endernexus.item_tooltip_none=Items: Disabled
+endernexus.item_tooltip_send=Items: Send
+endernexus.item_tooltip_receive=Items: Receive
+endernexus.item_tooltip_both=Items: Send+Receive
+
+endernexus.fluid_tooltip_none=Fluids: Disabled
+endernexus.fluid_tooltip_send=Fluids: Send
+endernexus.fluid_tooltip_receive=Fluids: Receive
+endernexus.fluid_tooltip_both=Fluids: Send+Receive
+
+endernexus.energy_tooltip_none=FE/RF: Disabled
+endernexus.energy_tooltip_send=FE/RF: Send
+endernexus.energy_tooltip_receive=FE/RF: Receive
+endernexus.energy_tooltip_both=FE/RF: Send+Receive
+
+endernexus.too_many_networks=Too many networks already exist!
+
+endernexus.itemblock.nexusblock.tooltip=Like a tesseract! Transports items, fluids, and forge energy/redstone flux between multiple places.

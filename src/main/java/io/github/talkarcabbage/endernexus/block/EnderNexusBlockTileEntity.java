@@ -196,7 +196,6 @@ public class EnderNexusBlockTileEntity extends TileEntity implements ITickable {
 	
 	@Override
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
-		EnderNexus.logger.info("OnDataPacket!");
 		super.onDataPacket(net, pkt);
 		if (world.isRemote) { //Update client data
 			if (pkt.getNbtCompound().getTag(NETWORKS_CACHE_UPDATE_STRING) instanceof NBTTagList) {

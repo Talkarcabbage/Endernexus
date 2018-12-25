@@ -80,12 +80,10 @@ public class EnderNexusManager extends WorldSavedData {
 		if ("".equals(id)) return null;
 		this.markDirty(); //A vaguely ghetto solution to ensure that any time a nexus is accessed, it is marked dirty to be saved incase it was edited.
 		return map.get(id);
-		//return map.get(id)==null ? createNewNexus(id) : map.get(id);
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound nbtList) {
-		EnderNexus.logger.info("Reading nexus data from world load");
 		if (!(nbtList.getTag(ENDER_NEXUS_DATA_NAME_TAGLIST) instanceof NBTTagList)) {
 			EnderNexus.logger.warn("Not a tag list!" + nbtList.getTag(ENDER_NEXUS_DATA_NAME_TAGLIST).toString());
 		} else {
@@ -108,7 +106,6 @@ public class EnderNexusManager extends WorldSavedData {
 
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-		EnderNexus.logger.info("Reading nexus data from world load");
 		NBTTagList tagList = new NBTTagList(); 
 		for (Map.Entry<String, EnderNexusInstance> entry : map.entrySet()) {
 			tagList.appendTag(entry.getValue().writeToNBT(new NBTTagCompound()));

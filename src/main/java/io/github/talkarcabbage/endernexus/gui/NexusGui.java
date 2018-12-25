@@ -14,6 +14,7 @@ import io.github.talkarcabbage.endernexus.nexus.TransferType;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 
@@ -97,19 +98,19 @@ public class NexusGui extends GuiContainer implements ButtonCallbackListener, Ne
 		scrollList.drawScreen(mouseX, mouseY, partialTicks);
 		
 		if (itemButton.isHoveringOn(mouseX, mouseY)) {
-			drawHoveringText("Items: " + getTypeTooltip(itemButton.getIconIndex()), mouseX, mouseY);
+			drawHoveringText(I18n.format("endernexus.item_tooltip"+getTypeTooltip(itemButton.getIconIndex())), mouseX, mouseY);
 		}
 		if (fluidButton.isHoveringOn(mouseX, mouseY)) { 
-			drawHoveringText("Fluids: " + getTypeTooltip(fluidButton.getIconIndex()), mouseX, mouseY);
+			drawHoveringText(I18n.format("endernexus.fluid_tooltip"+getTypeTooltip(fluidButton.getIconIndex())), mouseX, mouseY);
 		}
 		if (energyButton.isHoveringOn(mouseX, mouseY)) {
-			drawHoveringText("FE/RF: " + getTypeTooltip(energyButton.getIconIndex()), mouseX, mouseY);
+			drawHoveringText(I18n.format("endernexus.energy_tooltip"+getTypeTooltip(fluidButton.getIconIndex())), mouseX, mouseY);
 		}
 		if (okButton.isHoveringOn(mouseX, mouseY)) {
-			drawHoveringText("Applies the current text box text as the\nnetwork id, creating a new network if necessary.\nDouble click a network name in the list to switch to it immediately.", mouseX, mouseY);
+			drawHoveringText(I18n.format("endernexus.accept_button_tooltip"), mouseX, mouseY);
 		}
 		if (deleteButton.isHoveringOn(mouseX, mouseY)) {
-			drawHoveringText("Deletes the currently selected network in the list.", mouseX, mouseY);
+			drawHoveringText(I18n.format("endernexus.delete_button_tooltip"), mouseX, mouseY);
 		}
 
 	}
@@ -117,15 +118,15 @@ public class NexusGui extends GuiContainer implements ButtonCallbackListener, Ne
 	public String getTypeTooltip(int type) {
 		switch (type) {
 		case 0:
-			return "Disabled";
+			return "_none";
 		case 1: 
-			return "Sending";
+			return "_send";
 		case 2:
-			return "Receiving";
+			return "_receive";
 		case 3:
-			return "Both";
+			return "_both";
 		default:
-			return "???";
+			return "_none";
 		}
 	}
 	
@@ -174,7 +175,7 @@ public class NexusGui extends GuiContainer implements ButtonCallbackListener, Ne
 			return;
 		}
 		if (button==deleteButton) {
-			if (scrollList.selectedListIndex>=0 && !scrollList.list.isEmpty()) {
+			if (scrollList.selectedListIndex>=0 && scrollList.getSize()>scrollList.selectedListIndex && !scrollList.list.isEmpty()) {
 				NexusNetworkManager.INSTANCE.sendToServer(new NexusTileSettingsDeleteNetworkPacket(scrollList.list.get(scrollList.selectedListIndex)));
 			}
 			return;

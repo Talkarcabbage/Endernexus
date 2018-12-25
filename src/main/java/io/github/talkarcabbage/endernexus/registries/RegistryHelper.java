@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.github.talkarcabbage.endernexus.EnderNexus;
+import io.github.talkarcabbage.endernexus.block.ItemBlockEasyTooltip;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 
@@ -38,7 +38,8 @@ public class RegistryHelper {
     
     public static void registerItemBlocks(RegistryEvent.Register<Item> event) {
     	for (Block block : blocks) {
-        	event.getRegistry().register(new ItemBlock(block).setRegistryName(block.getRegistryName()));
+        	event.getRegistry().register(new ItemBlockEasyTooltip(block, block.getRegistryName().toString() + ".tooltip").setRegistryName(block.getRegistryName()));
+        	
     	}
     }
     

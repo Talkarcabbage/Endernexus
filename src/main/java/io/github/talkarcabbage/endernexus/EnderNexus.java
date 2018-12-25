@@ -30,7 +30,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class EnderNexus {
     public static final String MODID = "endernexus";
     public static final String NAME = "Ender Nexus";
-    public static final String VERSION = "1.12.2-1.0.0.1";
+    public static final String VERSION = "1.12.2-1.0.0.2";
     
     @SidedProxy(clientSide="io.github.talkarcabbage.endernexus.ClientProxy", serverSide="io.github.talkarcabbage.endernexus.CommonProxy")
     public static CommonProxy proxy; //NOSONAR pretend it's final because forge.

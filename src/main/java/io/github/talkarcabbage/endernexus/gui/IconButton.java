@@ -39,22 +39,8 @@ public class IconButton extends GuiButton {
 		if (this.visible) {
 			mc.getTextureManager().bindTexture(iconTexture);
 			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-			this.hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width
-					&& mouseY < this.y + this.height;
-			int j = 0;
-
-			if (!this.enabled) {
-				j += this.width * 2;
-			} else if (this.selected) {
-				j += this.width * 1;
-			} else if (this.hovered) {
-				j += this.width * 3;
-			}
-
-			//this.drawTexturedModalRect(this.x, this.y, j, 219, this.width, this.height);
+			this.hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
 			this.drawTexturedModalRect(this.x, this.y, this.iconX, this.iconY+(this.height*iconIndex), this.width, this.height);
-			
-			
 		}
 	}
 	
