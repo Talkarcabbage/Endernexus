@@ -7,7 +7,7 @@ Ender Nexus is a Minecraft Forge mod inspired by TeamCoFH's Thermal Expansion's 
 Ender Nexus adds a block that can transport items, fluids, and forge energy wirelessly between blocks and across dimensions.
 
 Use of a recipe mod such as JEI is recommended, though there is only one block.
-(Recipe may be subject to change later)
+Recipe may be subject to change later.
 
 #### License
 
